@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>우주 엘리베이터 탑승</title>
+<style>
+    @font-face {
+        font-family: 'ONE-Mobile-Title';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Title.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    body {
+        background-color: #0d0d0d;
+        color: #00BFFF;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-size: 48px;
+        font-family: 'Pretendard-Regular', sans-serif;
+        background-image: url('background.png');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        box-shadow: 0 0 10px #00BFFF;
+        max-width: 90%;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    .title {
+        color: #00BFFF;
+        font-size: 8vw;
+        margin-bottom: 20px;
+        text-align: center;
+        text-shadow: 0 0 10px #00BFFF;
+        padding: 10px;
+        width: 100%;
+        font-family: 'ONE-Mobile-Title', sans-serif;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .title::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(0, 191, 255, 0.5), rgba(0, 191, 255, 0));
+        z-index: 1;
+        animation: moveLines 3s infinite linear;
+    }
+
+    @keyframes moveLines {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
+    }
+
+    .instruction {
+        color: #FFFFFF;
+        font-size: 4vw;
+        text-align: center;
+        line-height: 1.2;
+        margin-bottom: 20px;
+        text-shadow: 0 0 5px #000000;
+    }
+
+    form {
+        text-align: center;
+        width: 100%;
+    }
+
+    input[type="text"] {
+        font-size: 5vw;
+        margin: 10px;
+        padding: 10px;
+        border: 2px solid #00BFFF;
+        background: rgba(0, 0, 0, 0.6);
+        color: #00BFFF;
+        text-shadow: 0 0 5px #00BFFF;
+        width: 80%;
+        box-sizing: border-box;
+    }
+
+    .button-container {
+        position: relative;
+        display: inline-block;
+        margin-top: 20px;
+        overflow: hidden; /* 버튼 밖으로 나가는 애니메이션 숨기기 */
+    }
+
+    input[type="button"] {
+        font-size: 5vw;
+        background-color: #00BFFF;
+        color: #0d0d0d;
+        border: 2px solid #00BFFF;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 0 10px #00BFFF;
+        width: 100%;
+        box-sizing: border-box;
+        font-family: 'ONE-Mobile-Title', sans-serif;
+        position: relative;
+        z-index: 1;
+    }
+
+    .button-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 200%; /* 100%에서 200%로 변경하여 끊김 없이 이어지도록 */
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.08) 2px,
+            transparent 2px,
+            transparent 4px
+        );
+        z-index: 2;
+        animation: moveLinesDown 3s infinite linear;
+        pointer-events: none;
+    }
+
+    @keyframes moveLinesDown {
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(-50%); /* -100%에서 -50%로 변경하여 끊김 없이 이어지도록 */
+        }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <p class="title">우주 엘리베이터 탑승</p>
+
+    <form id="infoForm">
+        <div class="instruction">
+            엘리베이터 탑승자 정보를 입력하세요.<br>Insert CREW ID.<br><br>하이픈(-)을 제외하고 입력하세요.<br>아이디는 12자리입니다.<br>
+        </div>
+        <input type="text" id="infoInput" name="infoInput"><br>
+        <div class="button-container">
+            <input type="button" value="스캔" onclick="processForm()">
+            <div class="button-lines"></div>
+        </div>
+    </form>
+</div>
+
+<script>
+function processForm() {
+    var input = document.getElementById("infoInput").value;
+    var url = "";
+
+    if(input === "237833234857") {
+        url = "result.html?result=탑승 권한이 없는 ID입니다.<br>다른 ID를 입력해 주세요.";
+    } else if (input === "482545809964") {
+        url = "result.html?result=탑승 권한이 없는 ID입니다.<br>다른 ID를 입력해 주세요.";
+    } else if (input === "678258918349") {
+        url = "result.html?result=탑승 권한이 없는 ID입니다.<br>다른 ID를 입력해 주세요.";
+    } else if (input === "988188509327") {
+        url = "result.html?result=탑승 권한이 없는 ID입니다.<br>다른 ID를 입력해 주세요.";
+    } else if (input === "012876310963") {
+        url = "result.html?result=엘리베이터 문이 열렸습니다.<br>모두 탑승 해 주세요.";
+    } else {
+        url = "result.html?result=잘못된 선원 아이디입니다.";
+    }
+
+    window.location.href = url; // Redirect to the new page with the result or image
+}
+</script>
+
+</body>
+</html>

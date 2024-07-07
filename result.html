@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>우주 엘리베이터 탑승</title>
+<style>
+    @font-face {
+        font-family: 'Pretendard-Regular';
+        src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'ONE-Mobile-Title';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-Title.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    body {
+        background-color: #2d2d2d;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        font-size: 48px;
+        font-family: 'Pretendard-Regular', sans-serif;
+        background-image: url('background.png');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 20px;
+        border: 2px solid #00BFFF;
+        box-shadow: 0 0 10px #00BFFF;
+        max-width: 90%;
+        box-sizing: border-box;
+        position: relative;
+        text-align: center;
+    }
+
+    .button-container {
+        position: relative;
+        display: inline-block;
+        margin-top: 20px;
+        overflow: hidden; /* 버튼 밖으로 나가는 애니메이션 숨기기 */
+    }
+
+    input[type="button"] {
+        font-size: 5vw;
+        background-color: #00BFFF;
+        color: #0d0d0d;
+        border: 2px solid #00BFFF;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 0 10px #00BFFF;
+        width: 100%;
+        box-sizing: border-box;
+        font-family: 'ONE-Mobile-Title', sans-serif;
+        position: relative;
+        z-index: 1;
+    }
+
+    .button-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 200%; /* 100%에서 200%로 변경하여 끊김 없이 이어지도록 */
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.08) 2px,
+            transparent 2px,
+            transparent 4px
+        );
+        z-index: 2;
+        animation: moveLinesDown 3s infinite linear;
+        pointer-events: none;
+    }
+
+    @keyframes moveLinesDown {
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(-50%); /* -100%에서 -50%로 변경하여 끊김 없이 이어지도록 */
+        }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <p id="result"></p>
+    <div id="buttonContainer" class="button-container">
+        <input type="button" value="뒤로 돌아가기" onclick="goBack()">
+        <div class="button-lines"></div>
+    </div>
+</div>
+
+<script>
+// URL에서 쿼리 매개변수를 파싱하여 결과를 얻는 함수
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
+// 결과를 표시
+const resultMessage = decodeURIComponent(getQueryVariable("result"));
+document.getElementById('result').innerHTML = resultMessage;
+
+if (resultMessage.includes("엘리베이터 문이 열렸습니다.")) {
+    document.getElementById('buttonContainer').innerHTML = `
+        <input type="button" value="탑승하기" onclick="goToEnding()">
+        <div class="button-lines"></div>
+    `;
+}
+
+function goBack() {
+    window.history.back();
+}
+
+function goToEnding() {
+    window.location.href = "ending.html";
+}
+</script>
+
+</body>
+</html>
